@@ -59,6 +59,7 @@ I built the logic to turn raw database entries into actionable business intellig
 
 ## 📸 Screenshots
 
+### 🔐 Security & Access
 **Login Page** - *Secure authentication using ASP.NET Core Identity*
 ![Login Page](screenshots/login.png)
 
@@ -66,7 +67,7 @@ I built the logic to turn raw database entries into actionable business intellig
 
 ### 🚀 Management Dashboard
 **Main Dashboard** - *Overview of active tables and daily operations*
-![Dashboard](screenshots/main%20dashboard.png)
+![Dashboard](screenshots/main-dashboard.png)
 
 **System Statistics** - *Real-time metrics on orders and reservations*
 ![Statistics](screenshots/system_statistics.png)
@@ -81,17 +82,18 @@ I built the logic to turn raw database entries into actionable business intellig
 
 ### 📊 Reporting Engine
 **Reporting Dashboard** - *Visual insights into revenue and occupation*
-![Report Dashboard](screenshots/rapport_dashboaard.png)
+![Report Dashboard](screenshots/rapport_dashboard.png)
 
 **PDF Export** - *Generated management report (PDF) based on SQL data*
 ![PDF Report](screenshots/rapport_pdf.png)
+
 ---
 
 ## ⚙️ How to Run Locally
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/SkyReapa02/restaurant-management-dotnet.git](https://github.com/SkyReapa02/restaurant-management-dotnet.git)
+    git clone [https://github.com/islam-sadaev/restaurant-management-dotnet.git](https://github.com/islam-sadaev/restaurant-management-dotnet.git)
     ```
 2.  **Configure Database**
     Update the connection string in `appsettings.json` to point to your local SQL Server instance.
