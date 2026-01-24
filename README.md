@@ -59,8 +59,32 @@ I built the logic to turn raw database entries into actionable business intellig
 
 ## 📸 Screenshots
 
-*(Add screenshots of your Dashboard, Login Screen, or Reporting view here)*
-![alt text](image.png)
+**Login Page** - *Secure authentication using ASP.NET Core Identity*
+![Login Page](screenshots/login.png)
+
+---
+
+### 🚀 Management Dashboard
+**Main Dashboard** - *Overview of active tables and daily operations*
+![Dashboard](screenshots/main%20dashboard.png)
+
+**System Statistics** - *Real-time metrics on orders and reservations*
+![Statistics](screenshots/system_statistics.png)
+
+---
+
+### ⚙️ Configuration
+**System Parameters** - *Dynamic configuration of restaurant settings (CRUD)*
+![Parameters](screenshots/restaurant_parameters.png)
+
+---
+
+### 📊 Reporting Engine
+**Reporting Dashboard** - *Visual insights into revenue and occupation*
+![Report Dashboard](screenshots/rapport_dashboaard.png)
+
+**PDF Export** - *Generated management report (PDF) based on SQL data*
+![PDF Report](screenshots/rapport_pdf.png)
 ---
 
 ## ⚙️ How to Run Locally
