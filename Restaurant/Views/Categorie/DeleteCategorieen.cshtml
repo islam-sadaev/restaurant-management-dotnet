@@ -1,0 +1,53 @@
+﻿@model CategorieReassignViewModel
+
+@{
+    ViewData["Title"] = "Gerechten herplaatsen";
+}
+
+<h2>Categorie verwijderen</h2>
+
+<div class="alert alert-warning">
+    <strong>Let op!</strong> De categorie <strong>@Model.Naam</strong> bevat nog gerechten.
+    <br />
+    Je moet deze gerechten eerst herplaatsen naar een andere categorie voordat je kan verwijderen.
+</div>
+
+<form asp-action="DeleteCategorieen" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Gerecht</th>
+                <th>Nieuwe categorie</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Gerechten.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Gerechten[i].Naam</td>
+
+                    <td>
+                        <input type="hidden" asp-for="Gerechten[i].Id" />
+
+                        <select asp-for="Gerechten[i].NieuweCategorieId"
+                                class="form-select"
+                                asp-items="Model.Categorieen">
+                            <option value="">-- Kies categorie --</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-danger mb-5">
+        <i class="bi bi-trash"></i> Categorie verwijderen
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary ms-2 mb-5">
+        Annuleren
+    </a>
+</form>

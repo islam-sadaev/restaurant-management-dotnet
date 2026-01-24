@@ -1,0 +1,72 @@
+﻿@model ParameterViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<!-- Hero Section -->
+<div class="hero bg-light text-white text-center" style="position: relative; height: 300px; background-image: url('/images/hero-contact.jpg'); background-size: cover; background-position: center;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;">
+        <div>
+            <h1 class="display-4 fw-bold">Contacteer ons</h1>
+            <p class="lead">We horen graag van u!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Form Section -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4 text-center">Stuur ons een bericht</h3>
+                    <form asp-action="VerstuurContact" method="post">
+                        <div class="mb-3">
+                            <label for="Naam" class="form-label">Naam</label>
+                            <input type="text" class="form-control" id="Naam" name="Naam" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Bericht" class="form-label">Bericht</label>
+                            <textarea class="form-control" id="Bericht" name="Bericht" rows="5" required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Verstuur</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional Contact Info / Map -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title">Onze locatie</h4>
+                    <address class="card-text mb-2">
+                        @Model.RestaurantAdres
+                    </address>
+
+                    <p class="card-text mb-1">
+                        Tel: <a href="tel:@Model.RestaurantTelefoon">@Model.RestaurantTelefoon</a>
+                    </p>
+
+                    <p class="card-text mb-3">
+                        Email: <a href="mailto:@Model.RestaurantEmail">@Model.RestaurantEmail</a>
+                    </p>
+
+                    <a href="https://www.google.com/maps/search/?api=1&query=@Model.RestaurantAdres"
+                       target="_blank"
+                       class="btn btn-primary">
+                        Bekijk op kaart
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

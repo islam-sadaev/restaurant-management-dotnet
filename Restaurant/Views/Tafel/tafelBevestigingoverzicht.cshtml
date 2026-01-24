@@ -1,0 +1,45 @@
+﻿@using Restaurant.ViewModels.tafels
+
+@model VMTafelBevestigen
+@{
+    ViewData["Title"] = "Overzicht";
+}
+<div class="container mt-4">
+    <h2>Overzicht teogevoegde tafel</h2>
+    <div class="card p-3 mt-3">
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">TafelNummer:</div>
+            <div class="col-8">@Model.Tafel.TafelNummer</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Aantal Personen:</div>
+            <div class="col-8">@Model.Tafel.AantalPersonen</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Minimum Aantal Personen:</div>
+            <div class="col-8">@Model.Tafel.MinAantalPersonen</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Actief:</div>
+            <div class="col-8">@Model.Tafel.Actief</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Qrbarcode:</div>
+            <div class="col-8">@Model.Tafel.QrBarcode</div>
+        </div>
+    </div>
+</div>
+<form asp-action="TafelBevestigingoverzicht" method="post">
+    <input type="hidden" asp-for="Tafel.TafelNummer" />
+    <input type="hidden" asp-for="Tafel.AantalPersonen" />
+    <input type="hidden" asp-for="Tafel.MinAantalPersonen" />
+    <input type="hidden" asp-for="Tafel.Id" />
+    <input type="hidden" asp-for="Tafel.Actief" />
+    <input type="hidden" asp-for="Tafel.QrBarcode" />
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Bevestigen</button>
+        <a asp-action="TafelAanmaken" class="btn btn-primary">Terug</a>
+    </div>
+
+
+</form>

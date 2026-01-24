@@ -1,0 +1,65 @@
+﻿@using Restaurant.ViewModels.tafels
+@model VMTafelEdit
+@{
+    ViewData["Title"] = "Tafel editor";
+}
+@{
+    if (User.IsInRole("Zaalverantwoordelijke"))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="TafelWijzigen" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="TafelNummer" class="control-label"></label>
+                        <input asp-for="TafelNummer" class="form-control" />
+                        <span asp-validation-for="TafelNummer" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AantalPersonen" class="control-label"></label>
+                        <input asp-for="AantalPersonen" class="form-control" />
+                        <span asp-validation-for="AantalPersonen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MinAantalPersonen" class="control-label"></label>
+                        <input asp-for="MinAantalPersonen" class="form-control" />
+                        <span asp-validation-for="MinAantalPersonen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Actief" class="control-label"></label>
+                        <input asp-for="Actief" class="form-check-input" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="QrBarcode" class="control-label"></label>
+                        <input asp-for="QrBarcode" class="form-control" />
+                        <span asp-validation-for="QrBarcode" class="text-danger"></span>
+                    </div>
+
+                   @{ if (null != TempData["alertMessage"])
+                    {
+                    <script type="text/javascript">
+                        alert('@TempData["alertMessage"]');                               
+                    </script>
+                            <label>@TempData["alertMessage"]</label>
+                    }
+                   }
+                    <div class="form-group">
+                        <input asp-for="Id" class="form-control" hidden />
+                        <input type="submit" value="Opslaan" class="btn btn-primary" />                                          
+                    </div>
+                   
+                </form>
+               <form asp-action="Delete">
+                    <input asp-for="Id" class="form-control" hidden />
+               <button type="submit"> Verwijderen</button>
+               </form>
+            </div>
+            <a asp-controller="Tafel" asp-action="Index" class="btn btn-primary">Terug</a>
+        </div>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Terug</a>
+    }
+   
+}

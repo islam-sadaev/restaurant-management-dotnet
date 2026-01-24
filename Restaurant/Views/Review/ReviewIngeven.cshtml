@@ -1,0 +1,59 @@
+﻿@using Restaurant.ViewModels.Enquete
+@model VMReviewIngeven
+
+@{
+    ViewData["Title"] = "Review Geven";
+}
+<script type="text/javascript">
+    function ColorStar(rating){
+        for(var i = 1;i<rating;i++){
+            $("#Star"+i).attr("class,bi bi-star-fill text-warning");
+        }
+        for(var i = rating;i<5;i++){
+            $("#Star"+i).attr("class,bi bi-star");
+        }
+
+    }
+    function SelectStar(rating){
+        $("Score").val(rating);
+        ColorStar(rating);
+    }
+</script>
+@if (Model.reservatie.Datum.Value.Subtract(DateTime.Now.Date).Days <= 14)
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group"> @{/*sterren */}
+                <label asp-for="Score" class="control-label"></label>
+                <span id="Star1" class="bi bi-star" onmouseover="ColorStar(1)" onclick="SelectStar(1)"></span>
+                <span id="Star2" class="bi bi-star" onmouseover="ColorStar(2)" onclick="SelectStar(2)"></span>
+                <span id="Star3" class="bi bi-star" onmouseover="ColorStar(3)" onclick="SelectStar(3)"></span>
+                <span id="Star4" class="bi bi-star" onmouseover="ColorStar(4)" onclick="SelectStar(4)"></span>
+                <span id="Star5" class="bi bi-star" onmouseover="ColorStar(5)" onclick="SelectStar(5)"></span>
+                <input id="Score" asp-for="Score" hidden />
+            </div>
+            <div class="form-group">
+                <label asp-for="Opmerking" class="control-label"></label>
+                <textarea rows="6" asp-for="Opmerking" class="form-control">
+                                </textarea>
+                <span asp-validation-for="Opmerking" class="text-danger"></span>
+            </div>
+
+
+        </form>
+    }
+    else
+    {
+        <label>Om een Review te geven moet je ingelogt zijn.</label>
+        <a asp-controller="Gebruiker" asp-action="Login">Login</a>
+    }
+
+}
+else
+{
+    <label>De actieve periode van deze link is verlopen.</label>
+    <a asp-controller="Home" asp-action="Index"></a>
+}

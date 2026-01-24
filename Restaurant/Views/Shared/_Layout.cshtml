@@ -1,0 +1,96 @@
+﻿@using Restaurant.Data.UnitOfWork
+@inject IUnitOfWork _uow
+
+@{
+    var parameters = await _uow.ParameterRepository.GetAllAsync();
+
+    var restaurantNaam = parameters.FirstOrDefault(p => p.Naam == "RestaurantNaam")?.Waarde ?? "The Canopy"; //als de Restaurant naam ni bestaat gaat het standaart the canopy gebruiekn
+    var RestaurantTelefoon = parameters.FirstOrDefault(p => p.Naam == "RestaurantTelefoon")?.Waarde ?? "Niet Gevonden";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @restaurantNaam</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Restaurant.styles.css" asp-append-version="true" />
+    <link href="~/favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow ">
+            @* mb-3, border-bottom weg gehaalt om de spatiue onder de navbalk weg te doen voor de login page. als dit later een probleem is, hierboven mb-3 toevoegen. *@
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@restaurantNaam</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MenuCategorieType">Menu </a>
+                        </li>
+
+                        @if (User.IsInRole("Klant"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservatie" asp-action="TafelReserveren">Reserveren</a>
+                            </li>
+                        } 
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact </a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <partial name="_LoginPartial" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <div>
+                &copy; 2025 - @restaurantNaam -
+                <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                <span class="ms-3">
+                    <i class="bi bi-telephone"></i> @RestaurantTelefoon
+                </span>
+            </div>
+
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" class="text-muted me-3">
+                    <i class="bi bi-facebook fs-4"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="text-muted">
+                    <i class="bi bi-instagram fs-4"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,206 @@
+@model Restaurant.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Dashboard</h1>
+        <small class="text-muted">
+            @if (User.IsInRole("Eigenaar"))
+            {
+                <text>Eigenaar</text>
+            }
+            else if (User.IsInRole("Kok") || User.IsInRole("Ober"))
+            {
+                <text>Kok / Ober</text>
+            }
+            else if (User.IsInRole("Zaalverantwoordelijke"))
+            {
+                <text>Zaalverantwoordelijke</text>
+            }
+        </small>
+    </div>
+
+    <!-- ========================= -->
+    <!-- EIGENAAR DASHBOARD -->
+    <!-- ========================= -->
+    @if (User.IsInRole("Eigenaar"))
+    {
+        <div class="row g-3">
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Gebruikers</h5>
+                        <a asp-controller="GebruikersBeheer" asp-action="Index" class="stretched-link">Beheren →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservaties</h5>
+                        <a asp-controller="Reservatie" asp-action="ReservatiesBeheren" class="stretched-link">Beheren →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Mail templates</h5>
+                        <a asp-controller="Mail" asp-action="Index" class="stretched-link">Templates →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Overzicht genereren</h5>
+                        <a asp-controller="Rapportage" asp-action="Dashboard" class="stretched-link">Rapportage →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Parameters</h5>
+                        <a asp-controller="Parameter" asp-action="Parameters" class="stretched-link">Aanpassen →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Systeem overzicht</h5>
+                        <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#statsModal">Bekijk cijfers →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+    <!-- ========================= -->
+    <!-- KOK / OBER DASHBOARD -->
+    <!-- ========================= -->
+    @if (User.IsInRole("Kok") || User.IsInRole("Ober"))
+    {
+        <div class="row g-3">
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Bestellingen</h5>
+                        <a href="/Bestelling" class="stretched-link">Overzicht →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Categorieën</h5>
+                        <a href="/Categorie" class="stretched-link">Beheren →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Dranken</h5>
+                        <a href="/Product/DrankOverzicht" class="stretched-link">Bekijk →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Eten</h5>
+                        <a href="/Product/EtenOverzicht" class="stretched-link">Bekijk →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+    <!-- ========================= -->
+    <!-- ZAALVERANTWOORDELIJKE -->
+    <!-- ========================= -->
+    @if (User.IsInRole("Zaalverantwoordelijke"))
+    {
+        <div class="row g-3">
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Tafels toewijzen</h5>
+                        <a href="/Tafel/TafelToewijzen" class="stretched-link">Toewijzen →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Tafels</h5>
+                        <a href="/Tafel" class="stretched-link">Overzicht →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+<!-- ========================= -->
+<!-- MODAL (ALLEEN EIGENAAR) -->
+<!-- ========================= -->
+@if (User.IsInRole("Eigenaar"))
+{
+    <div class="modal fade" id="statsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-modal text-white">
+                    <h5 class="modal-title">Systeem statistieken</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Gebruikers</strong>
+                            <span>@Model.UserCount</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Reservaties</strong>
+                            <span>@Model.ReservatieCount</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Bestellingen</strong>
+                            <span>@Model.BestellingCount</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Tafels</strong>
+                            <span>@Model.TafelCount</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Mail templates</strong>
+                            <span>@Model.MailTemplateCount</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn bg-modal" data-bs-dismiss="modal">Sluiten</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

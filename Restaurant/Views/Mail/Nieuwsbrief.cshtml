@@ -1,0 +1,69 @@
+﻿@using Restaurant.ViewModels.mails
+@model VMNiewsbrief
+@{
+    ViewData["Title"] = "Template editor";
+}
+@{
+    if (User.IsInRole("Eigenaar"))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Nieuwsbrief" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Naam" class="control-label"></label>
+                        <div>
+                            <p>Nieuwsbrief:</p><input asp-for="Naam" class="form-control" />
+                        </div>
+                        
+                        <span asp-validation-for="Naam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Onderwerp" class="control-label"></label>
+                        <input asp-for="Onderwerp" class="form-control" />
+                        <span asp-validation-for="Onderwerp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Body" class="control-label"></label>
+                        <textarea rows="6" asp-for="Body" class="form-control">
+                        </textarea>
+                        <span asp-validation-for="Body" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @{
+                            //ontvangers
+
+                            for (var i = 0; i < Model.Ontvangers.Count; i++)
+                            {
+                                <text>
+                                    <input type="hidden" asp-for="Ontvangers" value="@Model.Ontvangers[i]" />
+                                </text>
+                            }
+                        }
+                        <input asp-for="Id" class="form-control" hidden />
+                        @{
+                            if (Model.Ontvangers.Count != 0)
+                            {
+                                <input type="submit" value="Versturen" class="btn btn-primary mt-2" />
+                            }
+                            else
+                            {
+                                <label style="color:orange">Er zijn geen Ontvangers meegegeven</label>
+                                <input type="submit" value="Versturen" class="btn btn-primary mt-2" disabled />
+                            }
+                        }
+
+                        <a asp-controller="Mail" asp-action="Index" class="btn btn-primary mt-2">Terug</a>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-2">Terug</a>
+    }
+}
+

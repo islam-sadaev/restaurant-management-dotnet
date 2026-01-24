@@ -1,0 +1,59 @@
+﻿@model ReservatieMetTijdSlotListViewModel
+
+@{
+    ViewData["Title"] = "Reservaties beheren";
+}
+
+<h2>Reservaties</h2>
+<form asp-controller="Eigenaar" asp-action="Search" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Zoek op reservatie:
+            <input asp-for="DatumVan" type="date" class="form-control" />
+                <div class="form-group mt-3">
+                <input type="submit" value="Zoeken" class="btn btn-primary" />
+                <a asp-controller="Eigenaar" class="btn btn-primary" asp-action="ReservatiesBeheren">Terug naar volledige lijst</a>
+
+            </div>
+           
+        </p>
+    </div>
+</form>
+
+<div style="max-height: 400px; overflow-y: auto;">
+    <table class="table mb-5">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(v => v.Reservaties[0].Datum)
+            </td>
+            <td>
+                Aantal personen
+            </td>
+            <td>
+                @Html.DisplayNameFor(v => v.Reservaties[0].Naam)
+            </td>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Reservaties)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelitem => item.Datum)</td>
+                <td>@Html.DisplayFor(modelitem => item.AantalPersonen)</td>
+                <td>@Html.DisplayFor(modelitem => item.Naam)</td>
+                <td>
+                    <a asp-action="ReservatieEdit" asp-route-id="@item.Id" class="btn btn-primary">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="ReservatieDetails" asp-route-id="@item.Id" class="btn btn-primary">
+                        <i class="bi bi-info-circle"></i>
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </table>
+</div>
+

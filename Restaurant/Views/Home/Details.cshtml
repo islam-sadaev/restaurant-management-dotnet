@@ -1,0 +1,35 @@
+﻿@model ProductPrijsViewModel
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <img class="card-img-top" src="/images/Menu/@(Model.Id).jpg" alt="@Model.Naam" />
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h3 class="card-title mb-0">@Model.Naam</h3>
+                        @if (Model.Prijs.HasValue)
+                        {
+                            <span class="badge bg-warning text-dark fs-6">
+                                @Model.Prijs.Value.ToString("0.00 €")
+                            </span>
+                        }
+                    </div>
+
+                    <p class="card-text">@Model.Beschrijving</p>
+                    <p><strong>Allergenen:</strong> @Model.AllergenenInfo</p>
+
+                    @if (Model.IsSuggestie)
+                    {
+                        <span class="badge bg-success mb-2">Aanbevolen</span>
+                    }
+
+                    <div class="mt-3 d-flex gap-2">
+                        <a asp-controller="Bestelling" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-primary flex-grow-1">Add to bestelling</a>
+                        <a asp-action="Menu" asp-route-id="@Model.CategorieId" class="btn btn-secondary flex-grow-1">Terug naar menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

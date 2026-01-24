@@ -1,0 +1,111 @@
+﻿@model BestellingsMetStatusListViewModel
+
+@{
+    ViewData["Title"] = "Bestelling overzicht";
+    bool isKok = User.IsInRole("Kok");
+    bool isOber = User.IsInRole("Ober");
+}
+
+<h2 class="text-center">Bestelling</h2>
+
+<div style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-striped table-hover align-middle">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(v => v.bestellingMetStatus[0].TijdstipBestelling)</th>
+                <th>@Html.DisplayNameFor(v => v.bestellingMetStatus[0].Naam)</th>
+                <th>@Html.DisplayNameFor(v => v.bestellingMetStatus[0].Tafels)</th>
+                <th>@Html.DisplayNameFor(v => v.bestellingMetStatus[0].ProductNaam)</th>
+                <th>@Html.DisplayNameFor(v => v.bestellingMetStatus[0].Aantal)</th>
+                <th>@Html.DisplayNameFor(v => v.bestellingMetStatus[0].Opmerking)</th>
+                <th colspan="4" class="text-center">Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.bestellingMetStatus)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.TijdstipBestelling)</td>
+                    <td>@Html.DisplayFor(m => item.Naam)</td>
+                    <td>@string.Join(", ", item.Tafels)</td>
+                    <td>@Html.DisplayFor(m => item.ProductNaam)</td>
+                    <td>@Html.DisplayFor(m => item.Aantal)</td>
+                    <td>@Html.DisplayFor(m => item.Opmerking)</td>
+
+                    @* --------------------
+                       ROL = KOK
+                       -------------------- *@
+                    @if (isKok)
+                    {
+                        <td>
+                            <a asp-action="InBehandeling" asp-route-id="@item.Id"
+                               class="btn btn-sm @(item.StatusId == 1 ? "btn-primary" : "btn-secondary")">
+                                In behandeling
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="StaatKlaar" asp-route-id="@item.Id"
+                               class="btn btn-sm @(item.StatusId == 2 ? "btn-primary" : "btn-secondary")">
+                                Staat klaar
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Onbeschikbaar" asp-route-id="@item.Id"
+                               class="btn btn-sm @(item.StatusId == 4 ? "btn-primary" : "btn-secondary")">
+                                Onbeschikbaar
+                            </a>
+                        </td>
+                        <td></td>
+                    }
+
+                    @* --------------------
+                       ROL = OBER
+                       -------------------- *@
+                    else if (isOber)
+                    {
+                        if (item.TypeId == 1)
+                        {
+                            @* Dranken *@
+                            <td>
+                                <a asp-action="InBehandeling" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 1 ? "btn-primary" : "btn-secondary")">In behandeling</a>
+                            </td>
+                            <td>
+                                <a asp-action="StaatKlaar" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 2 ? "btn-primary" : "btn-secondary")">Staat klaar</a>
+                            </td>
+                            <td>
+                                <a asp-action="Geserveerd" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 3 ? "btn-primary" : "btn-secondary")">Geserveerd</a>
+                            </td>
+                            <td>
+                                <a asp-action="Onbeschikbaar" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 4 ? "btn-primary" : "btn-secondary")">Onbeschikbaar</a>
+                            </td>
+                        }
+                        else
+                        {
+                            @* Eten *@
+                            <td>
+                                <a asp-action="InBehandeling" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 1 ? "btn-primary" : "btn-secondary")">In behandeling</a>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm @(item.StatusId == 2 ? "btn-primary" : "btn-secondary")" disabled>Staat klaar</button>
+                            </td>
+                            <td>
+                                <a asp-action="Geserveerd" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 3 ? "btn-primary" : "btn-secondary")">Geserveerd</a>
+                            </td>
+                            <td>
+                                <a asp-action="Onbeschikbaar" asp-route-id="@item.Id"
+                                   class="btn btn-sm @(item.StatusId == 4 ? "btn-primary" : "btn-secondary")">Onbeschikbaar</a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,410 @@
+﻿/* =========================================
+   1. FONTS & VARIABLES
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Jouw Palet */
+    --bgColor: #FFF4E6; /* lichte woestijnzand */
+    --navbarColor: #FF5D00; /* vurige zonsondergang */
+    --textColor: #4B1D06; /* warme chocoladebruin */
+    --btnColor: #FFB800; /* saffraan geel */
+    --restColor: #FF8A00; /* mango-oranje accent */
+    /* Extra tinten voor diepte */
+    --white: #ffffff;
+    --shadow-light: 0 4px 20px rgba(75, 29, 6, 0.08);
+    --shadow-hover: 0 10px 25px rgba(255, 93, 0, 0.25);
+    --radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* =========================================
+   2. GLOBAL RESET & TYPOGRAPHY
+   ========================================= */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bgColor) !important;
+    color: var(--textColor);
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 80px; /* Ruimte voor footer */
+    overflow-x: hidden; /* Voorkom horizontaal scrollen */
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Playfair Display', serif; /* Luxueuze look voor titels */
+    color: var(--textColor);
+    font-weight: 700;
+}
+
+a {
+    color: var(--navbarColor);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+    a:hover {
+        color: var(--restColor);
+    }
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+.bg-modal {
+    background-color: var(--btnColor) !important;
+}
+/* =========================================
+   3. NAVBAR Styling
+   ========================================= */
+.navbar {
+    background-color: var(--navbarColor) !important;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+
+.navbar-brand {
+    color: var(--white) !important;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    margin: 0 5px;
+    position: relative;
+}
+
+    .nav-link:hover, .nav-link.active {
+        color: var(--white) !important;
+    }
+
+    /* Underline animatie voor links */
+    .nav-link::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: var(--btnColor);
+        transition: width 0.3s;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+/* Dropdown styling */
+.dropdown-menu {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    background-color: var(--white);
+    margin-top: 10px;
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    color: var(--textColor);
+    padding: 10px 15px;
+}
+
+    .dropdown-item:hover {
+        background-color: var(--bgColor);
+        color: var(--navbarColor);
+    }
+
+/* =========================================
+   4. BUTTONS & FORMS
+   ========================================= */
+.btn {
+    border: none;
+    border-radius: 50px; /* Pill shape */
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-primary, .btnColor {
+    background-color: var(--btnColor) !important;
+    color: var(--textColor) !important; /* Donkere tekst op geel leest beter */
+}
+
+.btn:hover {
+    transform: translateY(-2px); /* Button komt omhoog */
+    box-shadow: var(--shadow-hover);
+    filter: brightness(1.05);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-danger {
+    background-color: #e63946 !important;
+    color: white !important;
+}
+
+.btn-outline-danger {
+    color: #e63946;
+    border: 2px solid #e63946;
+    background: transparent !important;
+}
+
+    .btn-outline-danger:hover {
+        background-color: #e63946 !important;
+        color: white !important;
+    }
+
+/* Form inputs - VERBETERD VOOR ZICHTBAARHEID */
+.form-control, .form-select {
+    border-radius: var(--radius);
+    /* Lichte zandkleur zodat het opvalt op wit */
+    background-color: #FCEFE2;
+    /* Subtiel donkerder randje */
+    border: 1px solid rgba(75, 29, 6, 0.2);
+    color: var(--textColor);
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+    box-shadow: none;
+    font-weight: 500;
+}
+
+    .form-control:focus, .form-select:focus {
+        background-color: var(--white);
+        border-color: var(--navbarColor); /* Oranje rand bij focus */
+        box-shadow: 0 0 0 4px rgba(255, 93, 0, 0.2); /* Oranje gloed */
+        color: black;
+    }
+
+/* Labels styling */
+.form-label {
+    font-weight: 600;
+    color: var(--navbarColor);
+    margin-bottom: 0.5rem;
+}
+
+/* Placeholder tekst kleur */
+::placeholder {
+    color: rgba(75, 29, 6, 0.4) !important;
+}
+
+/* =========================================
+   5. CARDS & CONTAINERS
+   ========================================= */
+.card {
+    border: none;
+    border-radius: 20px;
+    background: var(--white);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+    .card:hover {
+        box-shadow: var(--shadow-hover);
+    }
+
+.card-header {
+    background-color: var(--navbarColor);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+
+.alert {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.hero h1, .hero p {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* =========================================
+   6. LOGIN PAGE (Split Layout)
+   ========================================= */
+.fullbleed {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.login-wrap {
+    min-height: calc(100vh - 76px); /* Aanpassen aan navbar hoogte */
+    display: flex;
+    background: var(--bgColor);
+    overflow: hidden;
+}
+
+.login-left {
+    flex: 1.3; /* Iets breder voor de foto */
+    position: relative;
+    /* Zorg dat je een mooie foto hebt in wwwroot/images/food-login.jpg */
+    background: url('/images/food-login.jpg') center / cover no-repeat;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%); /* Schuine lijn */
+}
+
+    /* Overlay op de foto voor sfeer */
+    .login-left::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(75, 29, 6, 0.6), rgba(255, 93, 0, 0.3));
+    }
+
+.login-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); /* Glas effect */
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 50px rgba(75, 29, 6, 0.15);
+    animation: slideUp 0.6s ease-out;
+}
+
+/* Mobile adjustments voor login */
+@media (max-width: 992px) {
+    .login-wrap {
+        flex-direction: column;
+    }
+
+    .login-left {
+        height: 250px;
+        flex: none;
+        clip-path: none;
+        border-radius: 0 0 30px 30px;
+    }
+
+    .login-right {
+        padding: 1rem;
+    }
+
+    .auth-card {
+        padding: 24px;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.footer {
+    background-color: var(--navbarColor) !important;
+    color: rgba(255, 255, 255, 0.8);
+    border-top: none;
+    padding: 1.5rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+    .footer a {
+        color: var(--white);
+        font-weight: 600;
+    }
+
+/* =========================================
+   8. ANIMATIONS & UTILS
+   ========================================= */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-in animatie voor pagina's */
+main {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.text-accent {
+    color: var(--restColor) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bgColor);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--restColor);
+    border-radius: 5px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--navbarColor);
+    }
+
+/* =========================================
+   9. JS ANIMATIE CLASSES
+   ========================================= */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, visibility;
+}
+
+    .fade-in-section.visible {
+        opacity: 1;
+        transform: none;
+    }

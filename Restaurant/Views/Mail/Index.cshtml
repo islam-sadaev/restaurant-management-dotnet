@@ -1,0 +1,64 @@
+﻿@using Restaurant.ViewModels.mails
+@model VMMailTemplateList
+@{
+    ViewData["Title"] = "Mails beheren";
+}
+@{
+    if (User.IsInRole("Eigenaar"))
+    {
+        if (null != TempData["alertMessage"])
+        {
+            <script type="text/javascript">
+                alert('@TempData["alertMessage"]');
+            </script>
+        }
+        <div class="text-center">
+
+        <h2 class="text-center mb-4">Mailbeheer</h2>
+
+        <!-- Template selectie -->
+        <div class="card shadow-sm p-4 mb-4">
+            <h4 class="mb-3">Template selecteren</h4>
+            
+            <form asp-action="Edit" asp-controller="Mail" method="get" class="row g-3">
+                <div class="col-md-8">
+                    <select asp-for="TemplateId" class="form-select" asp-items="Model.MailTemplates">
+                        <option value="-1">Kies een template</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 d-grid gap-2">
+                    <button type="submit" class="btn btn-primary"
+                    @(Model.TemplateId == -1 ? "disabled" : "")>
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-3">
+                <a asp-action="Aanmaken" asp-controller="Mail" class="btn btn-primary w-100">
+                    <i class="bi bi-plus-circle"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Nieuwsbrief -->
+        <div class="card shadow-sm p-4 mb-4">
+            <h4 class="mb-3">Nieuwsbrief</h4>
+
+            <a asp-action="Nieuwsbrief" asp-controller="Mail" class="btn btn-primary">
+                <i class="bi bi-envelope-paper"></i> Nieuwsbrief aanmaken
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-5">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary mt-2">
+            Terug
+        </a>
+    </div>
+}
+}

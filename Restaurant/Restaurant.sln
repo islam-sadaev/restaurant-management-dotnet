@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant", "Restaurant.csproj", "{8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantTests", "..\RestaurantTests\RestaurantTests.csproj", "{66BD1C4F-8A5E-4394-B4BD-6314DB7CC63A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9} = {8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA2C0F3-8F53-49A4-A071-09A61E5CB1B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BD1C4F-8A5E-4394-B4BD-6314DB7CC63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BD1C4F-8A5E-4394-B4BD-6314DB7CC63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BD1C4F-8A5E-4394-B4BD-6314DB7CC63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BD1C4F-8A5E-4394-B4BD-6314DB7CC63A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0FE22CD-3FF6-442F-A73A-61909724CD43}
+	EndGlobalSection
+EndGlobal

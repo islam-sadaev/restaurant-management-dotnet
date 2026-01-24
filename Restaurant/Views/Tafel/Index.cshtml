@@ -1,0 +1,29 @@
+﻿@using Restaurant.ViewModels.tafels
+@model VMTafelPlattegrond
+@{
+    ViewData["Title"] = "TafelsBeheren";
+}
+@{
+    if (User.IsInRole("Zaalverantwoordelijke"))
+    {
+        <div class="text-center">
+               
+            @{
+                foreach(var tafel in Model.TafelLijst)
+                {
+                    <a asp-action="TafelWijzigen" asp-route-id="@tafel.Id" asp-controller="Tafel">@tafel.TafelNummer</a>
+                }
+               
+                  
+        }
+
+
+            <a asp-action="tafelAanmaken" asp-controller="Tafel" class="btn btn-primary">Tafel toevoegen </a>
+
+        </div>
+    }
+   else
+    {
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Terug</a>
+    }
+}

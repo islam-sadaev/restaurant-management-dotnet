@@ -1,0 +1,25 @@
+﻿@using Restaurant.ViewModels.mails
+@model VMLog
+@{
+    ViewData["Title"] = "MailsBeheren";
+}
+@{
+    if (User.IsInRole("Eigenaar"))
+    {
+        <div class="text-center">
+
+
+            <div id="Log">
+                <textarea disabled rows="10" asp-for="Logs"></textarea>
+                <a asp-action="Index" asp-controller="Mail" class="btn btn-primary mt-2">Terug</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-2">Terug</a>
+    }
+}
+
+
+

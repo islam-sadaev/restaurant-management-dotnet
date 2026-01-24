@@ -1,0 +1,232 @@
+﻿@model Restaurant.ViewModels.ParameterViewModel
+
+@{
+    ViewData["Title"] = "Instellingen";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Restaurant instellingen</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mb-3">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mb-3">@TempData["ErrorMessage"]</div>
+    }
+
+    <form asp-action="Parameters" method="post" id="mainForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header text-white">Algemene informatie</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RestaurantNaam" class="form-label">Naam restaurant</label>
+                        <div class="input-group">
+                            <input asp-for="RestaurantNaam" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_RestaurantNaam" title="Resetten">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RestaurantTelefoon" class="form-label">Telefoon</label>
+                        <div class="input-group">
+                            <input asp-for="RestaurantTelefoon" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_RestaurantTelefoon" title="Resetten">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RestaurantEmail" class="form-label">Email</label>
+                        <div class="input-group">
+                            <input asp-for="RestaurantEmail" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_RestaurantEmail" title="Resetten">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RestaurantAdres" class="form-label">Adres</label>
+                        <div class="input-group">
+                            <input asp-for="RestaurantAdres" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_RestaurantAdres" title="Resetten">↻</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header text-white">Openingstijden</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="OpeningstijdWeekdag" class="form-label">Open (week)</label>
+                        <div class="input-group">
+                            <input asp-for="OpeningstijdWeekdag" class="form-control" type="time" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_OpeningstijdWeekdag">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="SluitingstijdWeekdag" class="form-label">Sluit (week)</label>
+                        <div class="input-group">
+                            <input asp-for="SluitingstijdWeekdag" class="form-control" type="time" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_SluitingstijdWeekdag">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="OpeningstijdWeekend" class="form-label">Open (weekend)</label>
+                        <div class="input-group">
+                            <input asp-for="OpeningstijdWeekend" class="form-control" type="time" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_OpeningstijdWeekend">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="SluitingstijdWeekend" class="form-label">Sluit (weekend)</label>
+                        <div class="input-group">
+                            <input asp-for="SluitingstijdWeekend" class="form-control" type="time" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_SluitingstijdWeekend">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="KeukenSluitingstijd" class="form-label">Keuken sluit</label>
+                        <div class="input-group">
+                            <input asp-for="KeukenSluitingstijd" class="form-control" type="time" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_KeukenSluitingstijd">↻</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header text-white">Reservatie regels</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="MaxReservatiesDagelijks" class="form-label">Max. reservaties</label>
+                        <div class="input-group">
+                            <input asp-for="MaxReservatiesDagelijks" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_MaxReservatiesDagelijks">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="MinPersonenPerReservatie" class="form-label">Min. personen</label>
+                        <div class="input-group">
+                            <input asp-for="MinPersonenPerReservatie" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_MinPersonenPerReservatie">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="MaxPersonenPerReservatie" class="form-label">Max. personen</label>
+                        <div class="input-group">
+                            <input asp-for="MaxPersonenPerReservatie" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_MaxPersonenPerReservatie">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="AnnulatieTermijn" class="form-label">Annulatietermijn</label>
+                        <div class="input-group">
+                            <input asp-for="AnnulatieTermijn" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_AnnulatieTermijn">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="MaxDagenVooruitReserveren" class="form-label">Max dagen vooruit</label>
+                        <div class="input-group">
+                            <input asp-for="MaxDagenVooruitReserveren" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_MaxDagenVooruitReserveren">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="ReservatieBevestigingVereist">
+                            <label class="form-check-label" asp-for="ReservatieBevestigingVereist">Bevestiging vereist?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header text-dark">Financieel & communicatie</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="BTWPercentage" class="form-label">BTW</label>
+                        <div class="input-group">
+                            <input asp-for="BTWPercentage" class="form-control" />
+                            <span class="input-group-text">%</span>
+                            <button class="btn btn-outline-danger" type="submit" form="del_BTWPercentage">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ServiceKostPercentage" class="form-label">Servicekost</label>
+                        <div class="input-group">
+                            <input asp-for="ServiceKostPercentage" class="form-control" />
+                            <span class="input-group-text">%</span>
+                            <button class="btn btn-outline-danger" type="submit" form="del_ServiceKostPercentage">↻</button>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="WelkomstmailVerzendDagen" class="form-label">Dagen welkomstmail</label>
+                        <div class="input-group">
+                            <input asp-for="WelkomstmailVerzendDagen" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_WelkomstmailVerzendDagen">↻</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EvaluatiemailVerzendDagen" class="form-label">Dagen evaluatiemail</label>
+                        <div class="input-group">
+                            <input asp-for="EvaluatiemailVerzendDagen" class="form-control" />
+                            <button class="btn btn-outline-danger" type="submit" form="del_EvaluatiemailVerzendDagen">↻</button>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="EmailVerzendingActief">
+                            <label class="form-check-label" asp-for="EmailVerzendingActief">E-mails verzenden?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary me-md-2">Annuleren</a>
+            <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+        </div>
+    </form>
+
+    <form id="del_RestaurantNaam" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="RestaurantNaam" /></form>
+    <form id="del_RestaurantTelefoon" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="RestaurantTelefoon" /></form>
+    <form id="del_RestaurantEmail" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="RestaurantEmail" /></form>
+    <form id="del_RestaurantAdres" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="RestaurantAdres" /></form>
+
+    <form id="del_OpeningstijdWeekdag" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="OpeningstijdWeekdag" /></form>
+    <form id="del_SluitingstijdWeekdag" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="SluitingstijdWeekdag" /></form>
+    <form id="del_OpeningstijdWeekend" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="OpeningstijdWeekend" /></form>
+    <form id="del_SluitingstijdWeekend" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="SluitingstijdWeekend" /></form>
+    <form id="del_KeukenSluitingstijd" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="KeukenSluitingstijd" /></form>
+
+    <form id="del_MaxReservatiesDagelijks" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="MaxReservatiesDagelijks" /></form>
+    <form id="del_MinPersonenPerReservatie" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="MinPersonenPerReservatie" /></form>
+    <form id="del_MaxPersonenPerReservatie" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="MaxPersonenPerReservatie" /></form>
+    <form id="del_AnnulatieTermijn" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="AnnulatieTermijn" /></form>
+    <form id="del_MaxDagenVooruitReserveren" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="MaxDagenVooruitReserveren" /></form>
+
+    <form id="del_BTWPercentage" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="BTWPercentage" /></form>
+    <form id="del_ServiceKostPercentage" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="ServiceKostPercentage" /></form>
+    <form id="del_WelkomstmailVerzendDagen" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="WelkomstmailVerzendDagen" /></form>
+    <form id="del_EvaluatiemailVerzendDagen" asp-action="Delete" method="post" onsubmit="return confirm('Resetten?');"><input type="hidden" name="naam" value="EvaluatiemailVerzendDagen" /></form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

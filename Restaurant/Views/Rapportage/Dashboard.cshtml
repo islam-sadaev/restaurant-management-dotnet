@@ -1,0 +1,220 @@
+﻿@model Restaurant.ViewModels.RapportageDashboardViewModel
+@{
+    ViewData["Title"] = "Rapportage Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Rapportage dashboard</h2>
+
+    @* DEBUG INFO - Verwijder dit later *@
+    @if (ViewBag.Debug != null)
+    {
+        <div class="alert alert-info">
+            <strong>DEBUG:</strong> @ViewBag.Debug
+        </div>
+    }
+
+    @* Formulier voor rapport genereren *@
+    <div class="card p-4 mb-4 shadow-sm">
+        <form method="post" asp-action="Dashboard">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label asp-for="Type" class="form-label fw-bold">Type rapport</label>
+                    <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<Restaurant.ViewModels.RapportType>()">
+                        <option value="">-- Selecteer type --</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Periode" class="form-label fw-bold">Periode</label>
+                    <select asp-for="Periode" class="form-select" asp-items="Html.GetEnumSelectList<Restaurant.ViewModels.RapportPeriode>()">
+                        <option value="">-- Selecteer periode --</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Genereer rapport
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @* Error melding *@
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>❌ Fout:</strong> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @* Geen data melding *@
+    @if (!Model.HeeftData && Context.Request.Method == "POST")
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>⚠️ Waarschuwing:</strong> Geen data gevonden voor deze periode.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @* Resultaten *@
+    @if (Model.HeeftData)
+    {
+        <div class="card shadow-sm mb-5">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Resultaten: @Model.Type - @Model.Periode</h5>
+                <form asp-action="DownloadPdf" method="post">
+                    <input type="hidden" asp-for="Type" />
+                    <input type="hidden" asp-for="Periode" />
+                    <button type="submit"
+                            asp-controller="Rapportage"
+                            asp-action="DownloadPdf"
+                            formtarget="_blank"
+                            class="btn btn-primary">
+                        Download PDF
+                    </button>
+                </form>
+            </div>
+            <div class="card-body">
+
+                @* TABEL OMZET *@
+                @if (Model.Type == Restaurant.ViewModels.RapportType.Omzet && Model.Bestellingen != null)
+                {
+
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Tijd</th>
+                                    <th>Product</th>
+                                    <th>Aantal</th>
+                                    <th>Prijs/stuk</th>
+                                    <th>Totaal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var b in Model.Bestellingen)
+                                {
+                                    <tr>
+                                        <td>@(b.Tijdstip?.ToString("dd/MM HH:mm") ?? "Onbekend")</td>
+                                        <td>@b.ProductNaam</td>
+                                        <td>@b.Aantal</td>
+                                        <td>€ @b.EenheidsPrijs.ToString("N2")</td>
+                                        <td class="fw-bold">€ @b.TotaalPrijs.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td colspan="4" class="text-end fw-bold">TOTAAL:</td>
+                                    <td class="fw-bold text-success">€ @Model.TotaleOmzet.ToString("N2")</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                }
+
+                @* TABEL RESERVATIES *@
+                @if (Model.Type == Restaurant.ViewModels.RapportType.Reservaties && Model.Reservaties != null)
+                {
+
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Datum & tijd</th>
+                                    <th>Naam</th>
+                                    <th>Personen</th>
+                                    <th>Email</th>
+                                    <th>Telefoon</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in Model.Reservaties)
+                                {
+                                    <tr>
+                                        <td>@(r.Datum?.ToString("dd/MM/yyyy HH:mm") ?? "Onbekend")</td>
+                                        <td>
+                                            @if (r.CustomUser != null)
+                                            {
+                                                @($"{r.CustomUser.Voornaam} {r.CustomUser.Achternaam}")
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Onbekend (KlantId: @r.KlantId)</span>
+                                            }
+                                        </td>
+                                        <td>@r.AantalPersonen</td>
+                                        <td>@(r.CustomUser?.Email ?? "-")</td>
+                                        <td>@(r.CustomUser?.PhoneNumber ?? "-")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                @* TABEL FEEDBACK *@
+                @if (Model.Type == Restaurant.ViewModels.RapportType.Feedback && Model.Reservaties != null)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Datum</th>
+                                    <th>Klant</th>
+                                    <th>Score</th>
+                                    <th>Feedback / opmerkingen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in Model.Reservaties)
+                                {
+                                    <tr>
+                                        <td>@(r.Datum?.ToString("dd/MM/yyyy") ?? "-")</td>
+                                        <td>
+                                            @if (r.CustomUser != null)
+                                            {
+                                                @($"{r.CustomUser.Voornaam} {r.CustomUser.Achternaam}")
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Onbekend</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (r.EvaluatieAantalSterren > 0)
+                                            {
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    <span class="@(i <= r.EvaluatieAantalSterren ? "text-warning" : "text-muted")">★</span>
+                                                }
+                                                <span class="ms-1">(@r.EvaluatieAantalSterren/5)</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted italic">Geen score</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(r.EvaluatieOpmerkingen))
+                                            {
+                                                <em>"@r.EvaluatieOpmerkingen"</em>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">-</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+</div>

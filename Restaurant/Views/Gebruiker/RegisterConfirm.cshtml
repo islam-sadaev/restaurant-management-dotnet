@@ -1,0 +1,43 @@
+﻿@model Restaurant.ViewModels.RegisterConfirmViewModel
+@{
+    ViewData["Title"] = "Bevestigen";
+}
+
+<h2>Gegevens bevestigen</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">Naam</dt>
+    <dd class="col-sm-9">@Model.Voornaam @Model.Achternaam</dd>
+
+    <dt class="col-sm-3">Adres</dt>
+    <dd class="col-sm-9">@Model.Adres @Model.Huisnummer, @Model.Postcode @Model.Gemeente</dd>
+
+    <dt class="col-sm-3">E-mail</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Land</dt>
+    <dd class="col-sm-9">
+        @(Model.Landen.FirstOrDefault(x => x.Value == Model.LandId.ToString())?.Text)
+    </dd>
+    <p>Nieuwsbrief: @(Model.Nieuwsbrief ? "Ja" : "Nee")</p>
+
+<input type="hidden" asp-for="Nieuwsbrief" />
+
+</dl>
+
+<form asp-action="Complete" method="post">
+    @* alle velden terug meegeven *@
+    <input type="hidden" asp-for="Voornaam" />
+    <input type="hidden" asp-for="Achternaam" />
+    <input type="hidden" asp-for="Email" />
+    <input type="hidden" asp-for="Password" />
+    <input type="hidden" asp-for="ConfirmPassword" />
+    <input type="hidden" asp-for="Adres" />
+    <input type="hidden" asp-for="Huisnummer" />
+    <input type="hidden" asp-for="Postcode" />
+    <input type="hidden" asp-for="Gemeente" />
+    <input type="hidden" asp-for="LandId" />
+
+    <button type="submit" class="btn btn-success">Bevestigen</button>
+    <a asp-action="Register" class="btn btn-secondary">Terug</a>
+</form>

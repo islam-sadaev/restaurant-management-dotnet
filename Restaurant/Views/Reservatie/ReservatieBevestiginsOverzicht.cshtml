@@ -1,0 +1,44 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model BevestigingsOverzichtMetIDViewModel
+@{
+    ViewData["Title"] = "Overzicht";
+}
+<div class="container mt-4">
+    <h2>Overzicht Reservatie</h2>
+    <div class="card p-3 mt-3">
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Datum:</div>
+            <div class="col-8">@Model.Datum?.ToString("dd/MM/yyyy")</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Aantal personen:</div>
+            <div class="col-8">@Model.AantalPersonen</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Tijdslot:</div>
+            <div class="col-8">@Model.Tijdslot</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 fw-bold">Opmerking:</div>
+            <div class="col-8">@Model.Opmerking</div>
+        </div>
+    </div>
+</div>
+<form asp-action="ReservatieBevestiginsOverzicht" method="post">
+    <input type="hidden" name="Datum" value="@Model.Datum?.ToString("yyyy-MM-dd")" />
+    <input type="hidden" asp-for="AantalPersonen" />
+    <input type="hidden" asp-for="KlantId" />
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="TijdSlotId" />
+    <input type="hidden" asp-for="Opmerking" />
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Bevestigen</button>
+        <a asp-action="ReservatiesBeheren" class="btn btn-primary">Terug</a>
+    </div>
+   
+
+</form>
+

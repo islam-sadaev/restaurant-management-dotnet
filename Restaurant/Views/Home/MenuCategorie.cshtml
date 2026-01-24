@@ -1,0 +1,34 @@
+﻿@model CategorieListViewModel
+
+<div class="m-3">
+    <button type="button"
+            class="btn btn-secondary"
+            onclick="history.back();">
+        Terug
+    </button>
+</div>
+
+<div class="row mt-5 mb-4">
+    @foreach (var item in Model.Categorias)
+    {
+        if (item.Actief)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <a asp-action="Menu"
+                       asp-route-id="@item.Id"
+                       class="text-decoration-none text-dark">
+
+                        <img class="card-img-top"
+                             src="/images/Categorie/@(item.Id).jpg"
+                             alt="@item.Naam" />
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@item.Naam</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>

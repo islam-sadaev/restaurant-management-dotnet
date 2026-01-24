@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Bedankt voor uw reservatie";
+}
+
+<div class="container text-center mt-5">
+    <h1 class="text-success mb-4">Bedankt voor uw reservatie!</h1>
+
+    <p class="lead">
+        Uw reservatie is succesvol opgeslagen.<br />
+        U ontvangt binnenkort een bevestiging via e-mail indien dat voorzien is.
+    </p>
+
+    <div class="mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">Terug naar home</a>
+        <a asp-action="TafelReserveren" class="btn btn-outline-secondary btn-lg">Nieuwe reservatie</a>
+    </div>
+</div>

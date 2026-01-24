@@ -1,0 +1,55 @@
+﻿@model Restaurant.ViewModels.TafelLijstToewijzen
+
+@{
+    ViewData["Title"] = "TafelsToewijzen";
+}@{
+    // map table ids to images (the images exist only here)
+    var tableImages = new Dictionary<int, string>
+    {
+        { 2, "/images/tafel(2).jpg" },
+        { 4, "/images/tafel(4).jpg" },
+        { 6, "/images/tafel(6).jpg" },
+        { 8, "/images/tafel(8).jpg" }
+    };
+}
+
+h1>Reservaties</h1>
+<form asp-action="AddTafelsToList" method="post">
+
+    @for (int i = 0; i < Model.Reservaties.Count; i++)
+    {
+        <div class="reservation-block">
+            <h3>
+                Reservation @Model.Reservaties[i].Id –
+                @Model.Reservaties[i].CustomUser.Voornaam -
+                @Model.Reservaties[i].CustomUser.Achternaam
+            </h3>
+
+            <input type="hidden" asp-for="Reservaties[i].Id" />
+
+            <div class="table-grid">
+                @foreach (var table in Model.BeschickbareTafels)
+                {
+                    var checkboxId = $"res-{i}-table-{table.Id}";
+                    bool selected = Model.BeschickbareTafels.Any(t => t.Id == table.Id);
+
+                    <div class="table-item">
+                        <input type="checkbox"
+                               name="Reservaties[@i].tafels"
+                               value="@table.Id"
+                               id="@checkboxId"
+                        @(selected ? "checked" : "")
+                               hidden />
+
+                        <label for="@checkboxId" class="table-button">
+                            <img src="@tableImages[table.AantalPersonen]" alt="Table @table.Id" />
+                            <span>@table.TafelNummer</span>
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <button type="submit">Save All</button>
+</form>

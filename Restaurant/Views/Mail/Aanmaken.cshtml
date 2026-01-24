@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Restaurant.ViewModels.mails
+@model VMMailTemplateAanmaken
+@{
+    ViewData["Title"] = "Template editor";
+}
+@{
+    if (User.IsInRole("Eigenaar"))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Aanmaken" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Naam" class="control-label"></label>
+                        <input asp-for="Naam" class="form-control" />
+                        <span asp-validation-for="Naam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Onderwerp" class="control-label"></label>
+                        <input asp-for="Onderwerp" class="form-control" />
+                        <span asp-validation-for="Onderwerp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Body" class="control-label"></label>
+                        <textarea rows="6" asp-for="Body" class="form-control">
+                        </textarea>
+                        <span asp-validation-for="Body" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Id" class="form-control" hidden />
+                        <input type="submit" value="Toevoegen" class="btn btn-primary mt-2" />
+                        <a asp-controller="Mail" asp-action="Index" class="btn btn-primary mt-2">Terug</a>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-2">Terug</a>
+    }
+}

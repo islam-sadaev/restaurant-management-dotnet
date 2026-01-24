@@ -1,0 +1,66 @@
+﻿@model Restaurant.ViewModels.DrankenViewModel
+
+<div class="container mt-4">
+    <h1 class="mb-4">Nieuwe drank</h1>
+
+    <form asp-action="CreateDrank" method="post" enctype="multipart/form-data">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Naam drank</th>
+                    <th>Beschrijving</th>
+                    <th>Allergenen</th>
+                    <th>Prijs</th>
+                    <th>Categorie</th>
+                    <th>Suggestie</th>
+                    <th>Actief</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="Naam" type="text" class="form-control" />
+                        <span asp-validation-for="Naam" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Beschrijving" type="text" class="form-control" />
+                        <span asp-validation-for="Beschrijving" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="allergenenInfo" type="text" class="form-control" />
+                        <span asp-validation-for="allergenenInfo" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="prijs" type="number" class="form-control" step="0.01" />
+                        <span asp-validation-for="prijs" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <select asp-for="categorieId" asp-items="Model.categories" class="form-control">
+                            <option value="">-- Kies een categorie --</option>
+                        </select>
+                        <span asp-validation-for="categorieId" class="text-danger"></span>
+                    </td>
+                    <td class="text-center">
+                        <input asp-for="IsSuggestie" type="checkbox" class="form-check-input" />
+                        <span asp-validation-for="IsSuggestie" class="text-danger"></span>
+                    </td>
+                    <td class="text-center">
+                        <input asp-for="Actief" type="checkbox" class="form-check-input" />
+                        <span asp-validation-for="Actief" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-group mb-3">
+            <label asp-for="Foto" class="form-label">Foto</label>
+            <input asp-for="Foto" type="file" class="form-control" />
+            <span asp-validation-for="Foto" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Maak drank aan
+            </button>
+        </div>
+    </form>
+</div>
