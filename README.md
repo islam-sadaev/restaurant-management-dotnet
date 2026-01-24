@@ -67,7 +67,7 @@ I built the logic to turn raw database entries into actionable business intellig
 
 ### 🚀 Management Dashboard
 **Main Dashboard** - *Overview of active tables and daily operations*
-![Dashboard](screenshots/main-dashboard.png)
+![Dashboard](screenshots/main_dashboard.png)
 
 **System Statistics** - *Real-time metrics on orders and reservations*
 ![Statistics](screenshots/system_statistics.png)
