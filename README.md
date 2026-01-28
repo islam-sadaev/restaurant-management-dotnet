@@ -7,7 +7,7 @@
 
 A comprehensive, full-stack web application designed to digitize restaurant operations. From table reservations and tablet-based ordering to kitchen management and financial reporting.
 
-Built as a capstone project for the **.NET Development** track at Thomas More University of Applied Sciences.
+Built as a capstone project for the **.NET Development** track at Thomas More.
 
 ---
 
